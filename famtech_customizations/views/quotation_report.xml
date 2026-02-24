@@ -1,0 +1,97 @@
+<odoo>
+    <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+
+        <!-- Re-arrange product details layout -->
+        <xpath expr="//table[@class='table table-sm o_main_table']" position="replace">
+            <table class="table table-sm o_main_table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Unit Price</th>
+                        <th>Qty</th>
+                        <th>VAT</th>
+                        <th>Total (VAT Inc)</th>
+                        <th>Availability</th>
+                        <th>Warranty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.order_line" t-as="l">
+                        <td>
+                            <span t-field="l.name" />
+                        </td>
+                        <td>
+                            <span t-field="l.price_unit" />
+                        </td>
+                        <td>
+                            <span t-field="l.product_uom_qty" />
+                        </td>
+                        <td><span t-field="l.tax_id.amount" />%</td>
+                        <td>
+                            <span t-esc="l.price_total" />
+                        </td>
+                        <td>
+                            <span t-esc="l.product_id.qty_available" />
+                        </td>
+                        <td>
+                            <span t-esc="l.product_id.warranty or 'N/A'" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </xpath>
+
+        <!-- VAT / Non-VAT totals -->
+        <xpath expr="//div[@class='row mt32 mb32']" position="replace">
+            <div class="row mt32 mb32">
+                <div class="col-6">
+                    <p>
+                        <b>Payment Terms:</b>
+                        <a href="https://famtech.com/payment-terms">Click here</a>
+                    </p>
+                    <p>
+                        <b>Terms &amp; Conditions:</b>
+                        <a href="https://famtech.com/terms">Click here</a>
+                    </p>
+                </div>
+                <div class="col-6 text-right">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td>Total Untaxed</td>
+                                <td>
+                                    <span t-field="o.amount_untaxed" />
+                                </td>
+                            </tr>
+                            <tr t-if="o.amount_tax > 0">
+                                <td>VAT (12%)</td>
+                                <td>
+                                    <span t-field="o.amount_tax" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Total (VAT Inc)</b>
+                                </td>
+                                <td>
+                                    <b>
+                                        <span t-field="o.amount_total" />
+                                    </b>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+
+        <!-- Reward Points -->
+        <xpath expr="//div[@class='article']" position="after">
+            <p> Current Reward Points: <span t-esc="o.partner_id.loyalty_points" />
+            </p>
+            <p> Points Earned if Confirmed: <span t-esc="o.points_to_earn" />
+            </p>
+        </xpath>
+
+    </template>
+</odoo>

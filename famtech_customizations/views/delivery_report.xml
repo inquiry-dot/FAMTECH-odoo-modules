@@ -1,0 +1,32 @@
+<odoo>
+    <template id="report_delivery_document_inherit" inherit_id="stock.report_delivery_document">
+
+        <xpath expr="//table[@name='stock_move_table']//span[@t-field='move.product_id']"
+            position="after">
+            <br />
+            <a t-att-href="move.product_id.brochure_url" t-if="move.product_id.brochure_url">Download
+                Brochure</a>
+        </xpath>
+
+        <xpath expr="//div[@class='page']" position="inside">
+            <div class="row mt48 mb32">
+                <div class="col-12">
+                    <p>
+                        <b>Payment Terms:</b>
+                        <br />
+                        <a href="https://famtech.com/payment-terms">Click here</a>
+                    </p>
+                    <p>
+                        <b>Terms &amp; Conditions:</b>
+                        <br />
+                        <a href="https://famtech.com/terms">Click here</a>
+                    </p>
+                    <p class="mt-3"> Current Reward Points: <span
+                            t-esc="o.partner_id.loyalty_points" />
+                    </p>
+                </div>
+            </div>
+        </xpath>
+
+    </template>
+</odoo>
