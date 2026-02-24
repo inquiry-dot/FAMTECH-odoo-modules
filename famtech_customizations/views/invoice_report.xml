@@ -1,0 +1,107 @@
+<odoo>
+    <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
+
+        <xpath expr="//table[@name='invoice_line_table']" position="replace">
+            <table class="table table-sm o_main_table" name="invoice_line_table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Unit Price</th>
+                        <th>Qty</th>
+                        <th>VAT</th>
+                        <th>Total (VAT Inc)</th>
+                        <th>Availability</th>
+                        <th>Warranty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.invoice_line_ids" t-as="l">
+                        <t t-if="l.display_type == 'product'">
+                            <td>
+                                <span t-field="l.name" />
+                                <br />
+                                <a t-att-href="l.product_id.brochure_url"
+                                    t-if="l.product_id.brochure_url">Download Brochure</a>
+                            </td>
+                            <td>
+                                <span t-field="l.price_unit" />
+                            </td>
+                            <td>
+                                <span t-field="l.quantity" />
+                            </td>
+                            <td>
+                                <span t-if="l.tax_ids" t-esc="l.tax_ids[0].amount" />
+                                <span t-else="">
+                                0</span>% </td>
+                            <td>
+                                <span t-field="l.price_total" />
+                            </td>
+                            <td>
+                                <span t-esc="l.product_id.qty_available" />
+                            </td>
+                            <td>
+                                <span t-esc="l.product_id.warranty or 'N/A'" />
+                            </td>
+                        </t>
+                    </tr>
+                </tbody>
+            </table>
+        </xpath>
+
+        <xpath expr="//div[@id='right-elements']" position="replace">
+            <div id="right-elements" class="row mt32 mb32 w-100">
+                <div class="col-6">
+                    <p>
+                        <b>Payment Terms:</b>
+                        <br />
+                        <a href="https://famtech.com/payment-terms">Click here</a>
+                    </p>
+                    <p>
+                        <b>Terms &amp; Conditions:</b>
+                        <br />
+                        <a href="https://famtech.com/terms">Click here</a>
+                    </p>
+                    <p class="mt-3"> Current Reward Points: <span
+                            t-esc="o.partner_id.loyalty_points" />
+                    </p>
+                </div>
+                <div class="col-6 text-end">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td>Total Untaxed</td>
+                                <td>
+                                    <span t-field="o.amount_untaxed" />
+                                </td>
+                            </tr>
+                            <tr t-if="o.amount_tax > 0">
+                                <td>VAT</td>
+                                <td>
+                                    <span t-field="o.amount_tax" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Total (VAT Inc)</b>
+                                </td>
+                                <td>
+                                    <b>
+                                        <span t-field="o.amount_total" />
+                                    </b>
+                                </td>
+                            </tr>
+                            <tr t-if="o.amount_tax == 0">
+                                <td colspan="2">* Non-VAT Transaction</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@id='payment_term']" position="replace">
+            <div id="payment_term" class="d-none"></div>
+        </xpath>
+
+    </template>
+</odoo>
