@@ -1,0 +1,26 @@
+<odoo>
+  <data noupdate="1">
+    <record id="email_template_collection_receipt" model="mail.template">
+      <field name="name">Collection Receipt</field>
+      <field name="model_id" ref="account.model_account_move"/>
+      <field name="subject">Official Receipt ${object.name}</field>
+      <field name="email_from">${(user.email_formatted or '')|safe}</field>
+      <field name="email_to">${object.partner_id.email}</field>
+      <field name="body_html"><![CDATA[
+        <p>Dear ${object.partner_id.name},</p>
+
+        <p>This is to acknowledge receipt of your payment for Invoice 
+        <strong>${object.name}</strong>.</p>
+
+        <p>Amount Paid: <strong>${format_amount(object.amount_total, object.currency_id)}</strong></p>
+
+        <p>Please find attached the official collection receipt.</p>
+
+        <p>Thank you for your continued partnership.</p>
+      ]]></field>
+
+      <field name="report_template" ref="famtech_customizations.report_collection_receipt_custom"/>
+      <field name="report_name">Collection_Receipt_${object.name}</field>
+    </record>
+  </data>
+</odoo>
