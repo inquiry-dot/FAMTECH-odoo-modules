@@ -1,0 +1,24 @@
+<odoo>
+  <data noupdate="1">
+
+    <record id="email_template_sale_quote_rewards" model="mail.template">
+      <field name="inherit_id" ref="sale.email_template_edi_sale"/>
+      <field name="body_html" type="xml">
+        <t t-raw="0"><![CDATA[
+          <p>Dear <t t-esc="object.partner_id.name"/>,</p>
+
+          <p>
+            You currently have 
+            <b><t t-esc="object.partner_id.loyalty_points"/></b> reward points.
+          </p>
+
+          <p>
+            If you confirm this quotation, you will earn an additional 
+            <b><t t-esc="object.points_to_earn"/></b> points.
+          </p>
+        ]]></t>
+      </field>
+    </record>
+
+  </data>
+</odoo>
