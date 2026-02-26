@@ -9,6 +9,9 @@
         "views/invoice_report.xml",
         "views/payment_receipt_report.xml",
         "views/delivery_report.xml",
+
+        'data/mail_template_invoice_reminders.xml',
+        'data/cron_invoice_reminders.xml',
     ],
     'installable': True,
     'application': False,
