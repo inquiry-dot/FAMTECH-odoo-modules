@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="mail_template_enrollment_paid" model="mail.template">
+            <field name="name">FAMTECH: Enrollment Confirmed (Paid)</field>
+            <field name="model_id" ref="sale.model_sale_order" />
+            <field name="subject">Welcome to FAMTECH: Enrollment Confirmed for ${object.name}</field>
+            <field name="email_from">${(object.company_id.email or 'no-reply@famtech.ph')}</field>
+            <field name="body_html"><![CDATA[
+                <p>Hello ${object.partner_id.name},</p>
+                <p>Thank you for enrolling in <b>${object.order_line[0].product_id.name}</b>. We have received your payment.</p>
+                <p><a href="${object.get_portal_url()}">Click here to go to your account</a> or <a href="/calendar/booking">Book your preferred training schedule now</a>.</p>
+                <p>Our Sales team will contact you shortly to confirm your preferred schedule. If it is confirmed, you'll receive a schedule confirmation email with the meeting link.</p>
+                <p>Regards, <br/>FAMTECH Team</p>
+            ]]></field>
+        </record>
+
+        <record id="mail_template_enrollment_pending" model="mail.template">
+            <field name="name">FAMTECH: Enrollment Pending (Payment Required)</field>
+            <field name="model_id" ref="sale.model_sale_order" />
+            <field name="subject">Next Steps: Complete your enrollment at FAMTECH</field>
+            <field name="email_from">${(object.company_id.email or 'no-reply@famtech.ph')}</field>
+            <field name="body_html"><![CDATA[
+                <p>Hello ${object.partner_id.name},</p>
+                <p>Thanks for choosing <b>${object.order_line[0].product_id.name}</b>. We noticed your payment method is <b>${object.x_payment_method or 'Manual / Bank Transfer'}</b>.</p>
+                <p>Our Sales team will contact you soon to arrange the payment and complete your enrollment. If you have payment proof, please reply to this email attaching it.</p>
+                <p>Regards, <br/>FAMTECH Sales</p>
+            ]]></field>
+        </record>
+
+        <record id="mail_template_notify_sales_cash" model="mail.template">
+            <field name="name">FAMTECH: New Enrollment (Cash Payment Selected)</field>
+            <field name="model_id" ref="sale.model_sale_order" />
+            <field name="subject">New Enrollment Cash Payment: ${object.partner_id.name}</field>
+            <field name="email_to">sales@famtech.ph</field>
+            <field name="body_html"><![CDATA[
+                <p>New enrollment details:</p>
+                <ul>
+                    <li>Customer: <b>${object.partner_id.name}</b></li>
+                    <li>Course: <b>${object.order_line[0].product_id.name}</b></li>
+                    <li>Order: <b>${object.name}</b></li>
+                </ul>
+                <p>Please contact the customer to arrange payment.</p>
+            ]]></field>
+        </record>
+
+        <record id="mail_template_schedule_confirm" model="mail.template">
+            <field name="name">FAMTECH: Training Schedule Confirmation</field>
+            <field name="model_id" ref="calendar.model_event" />
+            <field name="subject">Your FAMTECH Training is Confirmed: ${object.name}</field>
+            <field name="email_from">${(object.company_id.email or 'no-reply@famtech.ph')}</field>
+            <field name="body_html"><![CDATA[
+                <p>Hello ${object.partner_id.name or ''},</p>
+                <p>Your training has been scheduled:</p>
+                <ul>
+                    <li><b>Course:</b> ${object.name or 'TBD'}</li>
+                    <li><b>Date &amp; Time:</b> ${object.start_datetime}</li>
+                    <li><b>Meeting Link:</b> ${object.videocall_location or 'Will be provided'}</li>
+                </ul>
+                <p>Please join the virtual meeting 5 minutes before the start.</p>
+            ]]></field>
+        </record>
+
+        <record id="mail_template_points_awarded" model="mail.template">
+            <field name="name">FAMTECH: You earned points!</field>
+            <field name="model_id" ref="base.model_res_partner" />
+            <field name="subject">You earned ${object.x_last_points_earned} points!</field>
+            <field name="email_from">${(object.company_id.email or 'no-reply@famtech.ph')}</field>
+            <field name="body_html"><![CDATA[
+                <p>Hello ${object.name},</p>
+                <p>Congratulations! You earned <b>${object.x_last_points_earned} points</b> for your recent training performance. You now have <b>${object.x_famtech_points}</b> points total.</p>
+                <p>How to redeem: Use the generated coupon or select 'Use points' at checkout to apply a discount.</p>
+            ]]></field>
+        </record>
+
+    </data>
+</odoo>
