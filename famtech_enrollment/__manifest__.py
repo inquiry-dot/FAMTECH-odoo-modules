@@ -7,6 +7,7 @@
     "data/mail_templates.xml",
     "views/course_template.xml",
     "reports/certificate_template.xml",
+    "views/booking_templates.xml",
   ],
   "installable": True,
 }

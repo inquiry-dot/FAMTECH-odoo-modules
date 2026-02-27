@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="famtech_booking_page_template" name="FAMTECH Training Booking">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="pt40 pb40 text-center">
+                    <div class="container">
+                        <h2>Confirm Your FAMTECH Training Schedule</h2>
+                        <p class="lead">Select an available timeslot below to finalize your booking.</p>
+                    </div>
+                </section>
+
+                <div class="oe_structure" />
+            </div>
+        </t>
+    </template>
+</odoo>
