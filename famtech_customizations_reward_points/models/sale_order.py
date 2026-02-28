@@ -14,3 +14,9 @@ class SaleOrder(models.Model):
         for order in self:
             rate = 100  # 1 point per 100 pesos
             order.points_to_earn = int(order.amount_total // rate)
+
+    def action_confirm(self):
+        res = super().action_confirm()
+        for order in self:
+            order.partner_id.loyalty_points += order.points_to_earn
+        return res
