@@ -1,0 +1,17 @@
+<odoo>
+  <!-- Extend the Sale Order form to add Costing Calculator button -->
+  <record id="view_order_form_inherit_costing" model="ir.ui.view">
+    <field name="name">sale.order.form.costing</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+      <!-- Add the button in the header -->
+      <xpath expr="//header" position="inside">
+        <button name="action_open_costing_calculator"
+                string="Costing Calculator"
+                type="object"
+                class="btn-primary"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>
