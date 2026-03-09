@@ -1,0 +1,11 @@
+<template id="report_certificate">
+    <t t-call="web.html_container">
+        <div class="certificate-bg"
+            style="background-image: url('/custom_module/static/src/img/certificate_bg.png');">
+            <h1 t-esc="doc.partner_id.name" />
+            <p>has completed</p>
+            <h2 t-esc="doc.course_name" />
+            <p t-esc="doc.completion_date" />
+        </div>
+    </t>
+</template>

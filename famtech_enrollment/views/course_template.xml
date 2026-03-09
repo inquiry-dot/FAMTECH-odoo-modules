@@ -1,0 +1,8 @@
+<odoo>
+    <template id="inherit_product_page" inherit_id="website_sale.product">
+        <xpath expr="//div[contains(@class,'oe_structure')]" position="inside">
+            <a href="/shop/cart/update?product_id=12&amp;add_qty=1" class="btn btn-primary">Enroll
+                Now</a>
+        </xpath>
+    </template>
+</odoo>
