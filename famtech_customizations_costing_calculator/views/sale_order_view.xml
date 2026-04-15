@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Sale Order Form to Add Costing Calculator Button -->
+    <record id="view_order_form_inherit_costing" model="ir.ui.view">
+        <field name="name">sale.order.form.costing</field>
+        <field name="model">sale.order</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            
+            <!-- Add Costing Calculator Button in Header -->
+            <xpath expr="//header" position="inside">
+                <button name="action_open_costing_calculator"
+                        string="Costing Calculator"
+                        type="object"
+                        class="btn-primary"
+                        groups="sales_team.group_sale_salesman"
+                        invisible="state == 'cancel'"/>
+            </xpath>
+
+            <!-- Add Costing Summary Tab -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Costing Summary" name="costing_summary">
+                    <group>
+                        <group string="Cost Breakdown">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="cost_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="markup_percent" widget="float" string="Markup %" class="oe_inline"/>
+                            <field name="discount_percent" widget="float" string="Discount %" class="oe_inline"/>
+                        </group>
+                        <group string="Computed Results">
+                            <field name="computed_price" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                            <field name="margin_amount" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                            <field name="margin_percent" widget="float" string="Margin %" readonly="1" class="oe_inline"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
