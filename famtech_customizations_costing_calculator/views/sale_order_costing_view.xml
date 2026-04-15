@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Costing Calculator Modal Form View -->
+    <record id="view_order_costing_form" model="ir.ui.view">
+        <field name="name">sale.order.costing.form</field>
+        <field name="model">sale.order</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form string="Quotation Costing Calculator">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <h3>
+                            <field name="partner_id" readonly="1"/>
+                        </h3>
+                    </div>
+                    
+                    <group>
+                        <group string="Input Parameters">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="cost_price" 
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                   placeholder="e.g., 5000.00"/>
+                            <field name="markup_percent" 
+                                   widget="float"
+                                   placeholder="e.g., 20 for 20%"/>
+                            <field name="discount_percent" 
+                                   widget="float"
+                                   placeholder="e.g., 10 for 10%"/>
+                        </group>
+                        
+                        <group string="Computed Results">
+                            <field name="computed_price" 
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}" 
+                                   readonly="1"
+                                   class="oe_subtotal_footer_separator"/>
+                            <field name="margin_amount" 
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}" 
+                                   readonly="1"/>
+                            <field name="margin_percent" 
+                                   widget="float"
+                                   string="Margin %"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                
+                <footer>
+                    <button string="Save &amp; Close" 
+                            type="object" 
+                            name="action_save_costing" 
+                            class="btn-primary"/>
+                    <button string="Cancel" 
+                            special="cancel" 
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
